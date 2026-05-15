@@ -1,0 +1,72 @@
+# DocuMind OSS Agent Configuration
+# ================================
+
+# Server configuration
+server:
+  http_addr: ":8080"
+  read_timeout: 30s
+  write_timeout: 30s
+
+# Embedding configuration
+embedding:
+  provider: "ollama"
+  model: "nomic-embed-text"
+  endpoint: "http://localhost:11434"
+  dimensions: 768
+  batch_size: 32
+
+# Storage configuration
+storage:
+  data_dir: "data"
+  sqlite_path: "data/documind.db"
+  vector_db_path: "data/vectordb"
+
+# Repository configuration
+repositories:
+  - name: "kruise"
+    url: "https://github.com/openkruise/kruise"
+    branches:
+      - "master"
+    content_paths:
+      - "docs/"
+      - "README.md"
+      - "CHANGELOG.md"
+
+  - name: "openkruise-website"
+    url: "https://github.com/openkruise/openkruise.io"
+    branches:
+      - "master"
+    content_paths:
+      - "docs/"
+      - "blog/"
+      - "i18n/"
+
+# Ingestion configuration
+ingestion:
+  clone_depth: 1
+  file_extensions:
+    - ".md"
+    - ".yaml"
+    - ".yml"
+    - ".go"
+    - ".json"
+  max_file_size_mb: 10
+  workers: 4
+
+# Search configuration
+search:
+  top_k: 10
+  min_score: 0.3
+  hybrid_weight: 0.7  # 0.0 = pure keyword, 1.0 = pure vector
+
+# Evaluation configuration
+evaluation:
+  link_check_timeout: 10s
+  link_check_concurrency: 10
+  freshness_threshold_days: 90
+  duplicate_similarity_threshold: 0.90
+
+# Logging
+logging:
+  level: "info"   # debug, info, warn, error
+  format: "text"  # text, json
