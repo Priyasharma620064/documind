@@ -57,8 +57,8 @@ Each stage is independently testable and can be extended without affecting other
 └──────────────┘     └──────────────┘     └──────────────┘
 
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│  .go files   │────▶│  Regex-based │────▶│  Struct/Func │
-│              │     │  Parser      │     │  Extractor   │
+│  .go files   │────▶│  go/parser   │────▶│  Struct/Func │
+│              │     │  AST Parser  │     │  Extractor   │
 │              │     │              │     │              │
 └──────────────┘     └──────────────┘     └──────────────┘
 ```
@@ -125,14 +125,6 @@ Each stage is independently testable and can be extended without affecting other
                      │ MCP Tools │
                      ├───────────┤
                      │docs_lookup│
-                     │release_   │
-                     │  lookup   │
-                     │feature_   │
-                     │  context  │
-                     │arch_      │
-                     │  summary  │
-                     │code_ref   │
-                     │eval_docs  │
                      └───────────┘
 ```
 
@@ -204,6 +196,6 @@ Each stage is independently testable and can be extended without affecting other
 | Config | viper | Layered config, env var support |
 | Logging | slog (stdlib) | Zero-dependency structured logging |
 | MCP | mark3labs/mcp-go | Most popular Go MCP SDK |
-| HTTP | chi + net/http | Lightweight, idiomatic |
+| HTTP | net/http | Stdlib-only for zero-dependencies |
 | Metrics | prometheus/client_golang | Industry standard |
 | CI | GitHub Actions | Free for public repos |

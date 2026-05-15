@@ -194,15 +194,16 @@ DocuMind exposes the following MCP tools for AI IDE integration:
 ## 📈 Roadmap
 
 - [x] Project scaffolding & CLI
-- [ ] Repository ingestion engine
-- [ ] Markdown/YAML/Go parsing pipeline
-- [ ] Embedding pipeline (Ollama + chromem-go)
-- [ ] Semantic search with hybrid retrieval
-- [ ] Documentation quality evaluation
-- [ ] Knowledge graph
-- [ ] Version-aware retrieval
-- [ ] MCP server
-- [ ] REST API + Prometheus metrics
+- [x] Repository ingestion engine
+- [x] Markdown/YAML/Go parsing pipeline
+- [x] Embedding pipeline (Ollama + chromem-go)
+- [x] Semantic search with hybrid retrieval
+- [x] Documentation quality evaluation
+- [x] Knowledge graph
+- [x] Version-aware retrieval
+- [x] MCP server
+- [x] REST API
+- [ ] Prometheus metrics
 - [ ] ReAct agentic workflows
 - [ ] GitHub Actions CI/CD
 - [ ] Web dashboard
