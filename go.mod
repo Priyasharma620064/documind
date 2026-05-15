@@ -4,8 +4,11 @@ go 1.26.3
 
 require (
 	github.com/go-git/go-git/v5 v5.19.0
+	github.com/philippgille/chromem-go v0.7.0
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/viper v1.21.0
+	github.com/yuin/goldmark v1.8.2
+	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.50.1
 )
 
