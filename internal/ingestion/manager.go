@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"log/slog"
+	"path/filepath"
 	"time"
 
 	"github.com/priya-sharma/documind/internal/config"
@@ -26,7 +27,7 @@ type Manager struct {
 func NewManager(db *storage.DB, cfg *config.Config) *Manager {
 	return &Manager{
 		cloner: NewCloner(
-			cfg.Storage.DataDir+"/repos",
+			filepath.Join(cfg.Storage.DataDir, "repos"),
 			cfg.Ingestion.CloneDepth,
 		),
 		walker: NewWalker(

@@ -52,10 +52,14 @@ func (p *CodeParser) Parse(repoID, filePath string, source []byte) ([]models.Chu
 			// Structs/Interfaces
 			if _, ok := x.Type.(*ast.StructType); ok {
 				title := fmt.Sprintf("%s > struct %s", packageName, x.Name.Name)
+				doc := ""
+				if x.Doc != nil {
+					doc = x.Doc.Text()
+				}
 				chunks = append(chunks, models.Chunk{
 					RepoID:      repoID,
 					FilePath:    filePath,
-					Content:     fmt.Sprintf("%s\n%s", x.Doc.Text(), x.Name.Name), // Simplistic content
+					Content:     fmt.Sprintf("%s\n%s", doc, x.Name.Name),
 					HeadingPath: title,
 					ChunkType:   models.ChunkTypeCode,
 					Metadata: map[string]string{
@@ -69,19 +73,29 @@ func (p *CodeParser) Parse(repoID, filePath string, source []byte) ([]models.Chu
 			// Functions/Methods
 			funcName := x.Name.Name
 			if x.Recv != nil {
-				// It's a method
+				// It's a method — handle both value and pointer receivers
 				for _, field := range x.Recv.List {
-					if t, ok := field.Type.(*ast.Ident); ok {
+					switch t := field.Type.(type) {
+					case *ast.Ident:
 						funcName = fmt.Sprintf("(%s) %s", t.Name, funcName)
+					case *ast.StarExpr:
+						if ident, ok := t.X.(*ast.Ident); ok {
+							funcName = fmt.Sprintf("(*%s) %s", ident.Name, funcName)
+						}
 					}
 				}
+			}
+
+			doc := ""
+			if x.Doc != nil {
+				doc = x.Doc.Text()
 			}
 
 			title := fmt.Sprintf("%s > func %s", packageName, funcName)
 			chunks = append(chunks, models.Chunk{
 				RepoID:      repoID,
 				FilePath:    filePath,
-				Content:     fmt.Sprintf("%s\n%s", x.Doc.Text(), funcName),
+				Content:     fmt.Sprintf("%s\n%s", doc, funcName),
 				HeadingPath: title,
 				ChunkType:   models.ChunkTypeCode,
 				Metadata: map[string]string{

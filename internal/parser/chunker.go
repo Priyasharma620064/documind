@@ -98,5 +98,3 @@ func (c *Chunker) CreateChunks(repoID, filePath string, sections []Section) []mo
 
 	return allChunks
 }
-
-// fmt.Sprintf used above requires "fmt" import

@@ -57,10 +57,10 @@ func (c *LinkChecker) checkExternal(url string) error {
 	if err != nil {
 		return err
 	}
+	defer resp.Body.Close()
+
 	if resp.StatusCode >= 400 {
 		return fmt.Errorf("HTTP %d", resp.StatusCode)
 	}
 	return nil
 }
-
-// fmt.Sprintf used above requires "strings" import

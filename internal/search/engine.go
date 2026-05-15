@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/priya-sharma/documind/internal/embedding"
 	"github.com/priya-sharma/documind/internal/models"
 	"github.com/priya-sharma/documind/internal/vectorstore"
 )
@@ -13,14 +12,12 @@ import (
 // Engine handles semantic and hybrid search across repositories.
 type Engine struct {
 	vectorStore vectorstore.VectorStore
-	embedder    *embedding.OllamaClient
 }
 
 // NewEngine creates a new search Engine.
-func NewEngine(vs vectorstore.VectorStore, embedder *embedding.OllamaClient) *Engine {
+func NewEngine(vs vectorstore.VectorStore) *Engine {
 	return &Engine{
 		vectorStore: vs,
-		embedder:    embedder,
 	}
 }
 

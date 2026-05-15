@@ -126,21 +126,22 @@ func (w *Walker) Walk(rootDir string) ([]WalkedFile, error) {
 	return files, nil
 }
 
+// skipDirs is the set of directory names that should not be traversed.
+var skipDirs = map[string]bool{
+	".git":         true,
+	".github":      false, // We may want workflow files later
+	"node_modules": true,
+	"vendor":       true,
+	".idea":        true,
+	".vscode":      true,
+	"__pycache__":  true,
+	"dist":         true,
+	"build":        true,
+	".cache":       true,
+}
+
 // shouldSkipDir returns true for directories that should not be traversed.
 func shouldSkipDir(name string) bool {
-	skipDirs := map[string]bool{
-		".git":         true,
-		".github":      false, // We may want workflow files later
-		"node_modules": true,
-		"vendor":       true,
-		".idea":        true,
-		".vscode":      true,
-		"__pycache__":  true,
-		"dist":         true,
-		"build":        true,
-		".cache":       true,
-	}
-
 	if strings.HasPrefix(name, ".") && name != ".github" {
 		return true
 	}
