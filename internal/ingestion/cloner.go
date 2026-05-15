@@ -122,6 +122,9 @@ func (c *Cloner) pull(ctx context.Context, localPath, branch string) (*CloneResu
 		return nil, fmt.Errorf("getting worktree: %w", err)
 	}
 
+	// For robustness, reset to HEAD before pulling to ensure we are clean
+	_ = w.Reset(&git.ResetOptions{Mode: git.HardReset})
+
 	pullOpts := &git.PullOptions{
 		Progress: os.Stdout,
 	}
